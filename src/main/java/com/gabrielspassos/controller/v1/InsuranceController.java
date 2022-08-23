@@ -1,5 +1,6 @@
 package com.gabrielspassos.controller.v1;
 
+import com.gabrielspassos.builder.CreateInsuranceAnalysisResponseBuilder;
 import com.gabrielspassos.controller.v1.request.CreateInsuranceAnalysisRequest;
 import com.gabrielspassos.controller.v1.response.CreateInsuranceAnalysisResponse;
 import com.gabrielspassos.dto.CreateInsuranceAnalysisDTO;
@@ -27,7 +28,7 @@ public class InsuranceController implements BaseVersion {
         log.info("Started insurance analysis with: {}", request);
         CreateInsuranceAnalysisDTO createInsuranceAnalysisDTO = modelMapper.map(request, CreateInsuranceAnalysisDTO.class);
         return insuranceService.analysisInsurance(createInsuranceAnalysisDTO)
-                .map(dto -> modelMapper.map(dto, CreateInsuranceAnalysisResponse.class))
+                .map(CreateInsuranceAnalysisResponseBuilder::build)
                 .doOnSuccess(response -> log.info("Finished insurance analysis: {}", response));
     }
 }

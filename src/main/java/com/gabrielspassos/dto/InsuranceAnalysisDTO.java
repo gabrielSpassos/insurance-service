@@ -1,5 +1,6 @@
 package com.gabrielspassos.dto;
 
+import com.gabrielspassos.enumerator.InsuranceAnalysisEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class InsuranceAnalysisDTO {
 
-    private String auto;
-    private String disability;
-    private String home;
-    private String life;
+    private InsuranceAnalysisEnum auto;
+    private InsuranceAnalysisEnum disability;
+    private InsuranceAnalysisEnum home;
+    private InsuranceAnalysisEnum life;
 
 }
