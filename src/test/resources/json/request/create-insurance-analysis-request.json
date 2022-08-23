@@ -1,0 +1,17 @@
+{
+  "age": 35,
+  "dependents": 2,
+  "house": {
+    "ownership_status": "OWNED"
+  },
+  "income": 0,
+  "vehicle": {
+    "year": 2018
+  },
+  "marital_status": "MARRIED",
+  "risk_questions": [
+    false,
+    true,
+    false
+  ]
+}

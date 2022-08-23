@@ -3,7 +3,6 @@ package com.gabrielspassos.enumerator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 

@@ -162,10 +162,10 @@ public class InsuranceService {
     private InsuranceAnalysisDTO calculateRisks(Tuple2<CreateInsuranceAnalysisDTO, InsuranceAnalysisDTO> tuple) {
         InsuranceAnalysisDTO insuranceAnalysis = tuple.getT2();
 
-        InsuranceAnalysisEnum autoInsuranceAnalysis = getInsuranceAnalysisByRiskPoint(insuranceAnalysis.getAutoRiskPoints());
-        InsuranceAnalysisEnum disabilityInsuranceAnalysis = getInsuranceAnalysisByRiskPoint(insuranceAnalysis.getDisabilityRiskPoints());
-        InsuranceAnalysisEnum homeInsuranceAnalysis = getInsuranceAnalysisByRiskPoint(insuranceAnalysis.getHomeRiskPoints());
-        InsuranceAnalysisEnum lifeInsuranceAnalysis = getInsuranceAnalysisByRiskPoint(insuranceAnalysis.getLifeRiskPoints());
+        InsuranceAnalysisEnum autoInsuranceAnalysis = getInsuranceAnalysis(insuranceAnalysis.getAuto(), insuranceAnalysis.getAutoRiskPoints());
+        InsuranceAnalysisEnum disabilityInsuranceAnalysis = getInsuranceAnalysis(insuranceAnalysis.getDisability(), insuranceAnalysis.getDisabilityRiskPoints());
+        InsuranceAnalysisEnum homeInsuranceAnalysis = getInsuranceAnalysis(insuranceAnalysis.getHome(), insuranceAnalysis.getHomeRiskPoints());
+        InsuranceAnalysisEnum lifeInsuranceAnalysis = getInsuranceAnalysis(insuranceAnalysis.getLife(), insuranceAnalysis.getLifeRiskPoints());
 
         insuranceAnalysis.setAuto(autoInsuranceAnalysis);
         insuranceAnalysis.setDisability(disabilityInsuranceAnalysis);
@@ -179,6 +179,12 @@ public class InsuranceService {
         Integer currentYear = Year.now().getValue();
 
         return Objects.nonNull(vehicleDTO) && (currentYear - vehicleDTO.getYear() <= 5);
+    }
+
+    private InsuranceAnalysisEnum getInsuranceAnalysis(InsuranceAnalysisEnum currentAnalysis, Integer riskPoints) {
+        return InsuranceAnalysisEnum.INELIGIBLE.equals(currentAnalysis)
+                ? currentAnalysis
+                : getInsuranceAnalysisByRiskPoint(riskPoints);
     }
 
 }
