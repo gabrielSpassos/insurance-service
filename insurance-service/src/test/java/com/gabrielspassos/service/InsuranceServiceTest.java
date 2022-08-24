@@ -27,13 +27,10 @@ class InsuranceServiceTest {
     void shouldReturnInsuranceAnalysis() {
         CreateInsuranceAnalysisDTO createInsuranceAnalysisDTO = CreateInsuranceAnalysisDTOStub.create();
         given(riskAnalysisConfig.getStartIneligibleAge()).willReturn(60);
-        given(riskAnalysisConfig.getHigherRiskPointsByAge()).willReturn(-2L);
         given(riskAnalysisConfig.getLowerRiskPointsByAge()).willReturn(-1L);
         given(riskAnalysisConfig.getStartAgeToIgnoreRiskPoints()).willReturn(40);
         given(riskAnalysisConfig.getFinishAgeToUpgradeRiskPoints()).willReturn(30);
         given(riskAnalysisConfig.getStartIncomeToDowngradeRiskPoints()).willReturn(200000);
-        given(riskAnalysisConfig.getDowngradeRiskPointsByIncome()).willReturn(-1L);
-        given(riskAnalysisConfig.getUpgradeRiskPointsByHouse()).willReturn(1L);
         given(riskAnalysisConfig.getMaxVehicleAgeToUpgradeRiskPoints()).willReturn(5);
 
         InsuranceAnalysisDTO insuranceAnalysisDTO = insuranceService.analysisInsurance(createInsuranceAnalysisDTO).block();

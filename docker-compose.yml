@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  insurance-service:
+    container_name: insurance-service
+    build:
+      context: ./insurance-service/
+    ports:
+      - "8080:8080"
+    networks: 
+      insurance-net:
+        ipv4_address: 10.5.0.2
+      
+networks:
+  insurance-net:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
