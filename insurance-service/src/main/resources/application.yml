@@ -6,3 +6,14 @@ spring:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+
+insurance:
+  risk:
+    age:
+      ineligible: 60
+      start-ignore-risk: 40
+      finish-upgrade-risk: 30
+    income:
+      start-downgrade-risk: 200000
+    vehicle:
+      max-age-upgrade-risk: 5

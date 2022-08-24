@@ -1,6 +1,7 @@
 package com.gabrielspassos.service;
 
 import com.gabrielspassos.builder.InsuranceAnalysisDTOBuilder;
+import com.gabrielspassos.config.RiskAnalysisConfig;
 import com.gabrielspassos.dto.CreateInsuranceAnalysisDTO;
 import com.gabrielspassos.dto.CreateInsuranceAnalysisVehicleDTO;
 import com.gabrielspassos.dto.InsuranceAnalysisDTO;
@@ -28,7 +29,8 @@ import static java.util.Objects.nonNull;
 public class InsuranceService {
 
     private static final Integer ZERO = 0;
-    private static final Integer START_INELIGIBLE_AGE = 60;
+
+    private RiskAnalysisConfig riskAnalysisConfig;
 
     public Mono<InsuranceAnalysisDTO> analysisInsurance(CreateInsuranceAnalysisDTO createInsuranceAnalysis) {
         return Mono.just(createInsuranceAnalysis)
@@ -75,7 +77,7 @@ public class InsuranceService {
     }
 
     private Tuple2<CreateInsuranceAnalysisDTO, InsuranceAnalysisDTO> analysisIneligibleAge(Tuple2<CreateInsuranceAnalysisDTO, InsuranceAnalysisDTO> tuple) {
-        if (tuple.getT1().getAge() > START_INELIGIBLE_AGE) {
+        if (tuple.getT1().getAge() > riskAnalysisConfig.getStartIneligibleAge()) {
             tuple.getT2().setDisability(InsuranceAnalysisEnum.INELIGIBLE);
             tuple.getT2().setLife(InsuranceAnalysisEnum.INELIGIBLE);
         }
@@ -87,11 +89,11 @@ public class InsuranceService {
         CreateInsuranceAnalysisDTO createInsuranceAnalysis = tuple.getT1();
         InsuranceAnalysisDTO insuranceAnalysis = tuple.getT2();
 
-        if (createInsuranceAnalysis.getAge() > 40) {
+        if (createInsuranceAnalysis.getAge() > riskAnalysisConfig.getStartAgeToIgnoreRiskPoints()) {
             return tuple;
         }
 
-        Long riskPointsToCalculate = createInsuranceAnalysis.getAge() < 30 ? -2L : -1L;
+        Long riskPointsToCalculate = createInsuranceAnalysis.getAge() < riskAnalysisConfig.getFinishAgeToUpgradeRiskPoints() ? -2L : -1L;
         insuranceAnalysis.updateAllRiskPoints(riskPointsToCalculate);
 
         return tuple;
@@ -101,7 +103,7 @@ public class InsuranceService {
         CreateInsuranceAnalysisDTO createInsuranceAnalysis = tuple.getT1();
         InsuranceAnalysisDTO insuranceAnalysis = tuple.getT2();
 
-        if (createInsuranceAnalysis.getIncome() > 200000) {
+        if (createInsuranceAnalysis.getIncome() > riskAnalysisConfig.getStartIncomeToDowngradeRiskPoints()) {
             insuranceAnalysis.updateAllRiskPoints(-1L);
         }
 
@@ -178,7 +180,8 @@ public class InsuranceService {
     private boolean shouldCalculateRiskFromVehicle(CreateInsuranceAnalysisVehicleDTO vehicleDTO) {
         Integer currentYear = Year.now().getValue();
 
-        return Objects.nonNull(vehicleDTO) && (currentYear - vehicleDTO.getYear() <= 5);
+        return Objects.nonNull(vehicleDTO)
+                && (currentYear - vehicleDTO.getYear() <= riskAnalysisConfig.getMaxVehicleAgeToUpgradeRiskPoints());
     }
 
     private InsuranceAnalysisEnum getInsuranceAnalysis(InsuranceAnalysisEnum currentAnalysis, Long riskPoints) {
