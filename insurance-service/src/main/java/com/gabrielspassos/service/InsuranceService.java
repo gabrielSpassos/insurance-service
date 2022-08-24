@@ -93,7 +93,9 @@ public class InsuranceService {
             return tuple;
         }
 
-        Long riskPointsToCalculate = createInsuranceAnalysis.getAge() < riskAnalysisConfig.getFinishAgeToUpgradeRiskPoints() ? -2L : -1L;
+        Long riskPointsToCalculate = createInsuranceAnalysis.getAge() < riskAnalysisConfig.getFinishAgeToUpgradeRiskPoints()
+                ? riskAnalysisConfig.getHigherRiskPointsByAge()
+                : riskAnalysisConfig.getLowerRiskPointsByAge();
         insuranceAnalysis.updateAllRiskPoints(riskPointsToCalculate);
 
         return tuple;
@@ -104,7 +106,7 @@ public class InsuranceService {
         InsuranceAnalysisDTO insuranceAnalysis = tuple.getT2();
 
         if (createInsuranceAnalysis.getIncome() > riskAnalysisConfig.getStartIncomeToDowngradeRiskPoints()) {
-            insuranceAnalysis.updateAllRiskPoints(-1L);
+            insuranceAnalysis.updateAllRiskPoints(riskAnalysisConfig.getDowngradeRiskPointsByIncome());
         }
 
         return tuple;
@@ -117,9 +119,13 @@ public class InsuranceService {
         if (nonNull(createInsuranceAnalysis.getHouse())
                 && nonNull(createInsuranceAnalysis.getHouse().getStatus())
                 && OwnershipStatusEnum.MORTGAGED.equals(createInsuranceAnalysis.getHouse().getStatus())) {
-
-            insuranceAnalysis.setHomeRiskPoints(calculateRiskPoints(insuranceAnalysis.getHomeRiskPoints(), 1L));
-            insuranceAnalysis.setDisabilityRiskPoints(calculateRiskPoints(insuranceAnalysis.getDisabilityRiskPoints(), 1L));
+            Long upgradeRiskPointsByHouse = riskAnalysisConfig.getUpgradeRiskPointsByHouse();
+            insuranceAnalysis.setHomeRiskPoints(
+                    calculateRiskPoints(insuranceAnalysis.getHomeRiskPoints(), upgradeRiskPointsByHouse)
+            );
+            insuranceAnalysis.setDisabilityRiskPoints(
+                    calculateRiskPoints(insuranceAnalysis.getDisabilityRiskPoints(), upgradeRiskPointsByHouse)
+            );
         }
 
         return tuple;

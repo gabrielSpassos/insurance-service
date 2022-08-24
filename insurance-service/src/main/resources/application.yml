@@ -13,7 +13,15 @@ insurance:
       ineligible: 60
       start-ignore-risk: 40
       finish-upgrade-risk: 30
+      points:
+        higher: -2
+        lower: -1
     income:
       start-downgrade-risk: 200000
+      points:
+        downgrade: -1
+    house:
+      points:
+        upgrade: 1
     vehicle:
       max-age-upgrade-risk: 5

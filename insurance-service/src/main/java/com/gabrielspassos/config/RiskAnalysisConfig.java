@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RiskAnalysisConfig {
 
+    // Age
     @Value("${insurance.risk.age.ineligible}")
     private Integer startIneligibleAge;
 
@@ -17,9 +18,24 @@ public class RiskAnalysisConfig {
     @Value("${insurance.risk.age.finish-upgrade-risk}")
     private Integer finishAgeToUpgradeRiskPoints;
 
+    @Value("${insurance.risk.age.points.higher}")
+    private Long higherRiskPointsByAge;
+
+    @Value("${insurance.risk.age.points.lower}")
+    private Long lowerRiskPointsByAge;
+
+    // Income
     @Value("${insurance.risk.income.start-downgrade-risk}")
     private Integer startIncomeToDowngradeRiskPoints;
 
+    @Value("${insurance.risk.income.points.downgrade}")
+    private Long downgradeRiskPointsByIncome;
+
+    // House
+    @Value("${insurance.risk.house.points.upgrade}")
+    private Long upgradeRiskPointsByHouse;
+
+    // Vehicle
     @Value("${insurance.risk.vehicle.max-age-upgrade-risk}")
     private Integer maxVehicleAgeToUpgradeRiskPoints;
 
