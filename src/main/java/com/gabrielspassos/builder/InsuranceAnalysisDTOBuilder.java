@@ -1,16 +1,19 @@
 package com.gabrielspassos.builder;
 
+import com.gabrielspassos.dto.CreateInsuranceAnalysisDTO;
 import com.gabrielspassos.dto.InsuranceAnalysisDTO;
+import org.apache.commons.lang3.BooleanUtils;
 
 public class InsuranceAnalysisDTOBuilder {
-    private static final Integer INITIAL_RISK_POINTS = 0;
 
-    public static InsuranceAnalysisDTO buildInitialAnalysis() {
+    public static InsuranceAnalysisDTO buildInitialAnalysis(CreateInsuranceAnalysisDTO createInsuranceAnalysisDTO) {
+        Long baseScore = createInsuranceAnalysisDTO.getRiskQuestions().stream().filter(BooleanUtils::isTrue).count();
+
         return InsuranceAnalysisDTO.builder()
-                .autoRiskPoints(INITIAL_RISK_POINTS)
-                .disabilityRiskPoints(INITIAL_RISK_POINTS)
-                .homeRiskPoints(INITIAL_RISK_POINTS)
-                .lifeRiskPoints(INITIAL_RISK_POINTS)
+                .autoRiskPoints(baseScore)
+                .disabilityRiskPoints(baseScore)
+                .homeRiskPoints(baseScore)
+                .lifeRiskPoints(baseScore)
                 .build();
     }
 }

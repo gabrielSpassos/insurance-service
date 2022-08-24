@@ -12,14 +12,14 @@ import static java.util.Objects.isNull;
 @AllArgsConstructor
 public enum InsuranceAnalysisEnum {
 
-    ECONOMIC("economic", null, 0),
-    REGULAR("regular", 1, 2),
-    RESPONSIBLE("responsible", 3, null),
+    ECONOMIC("economic", null, 0L),
+    REGULAR("regular", 1L, 2L),
+    RESPONSIBLE("responsible", 3L, null),
     INELIGIBLE("ineligible", null, null);
 
     private final String status;
-    private final Integer minRiskPoint;
-    private final Integer maxRiskPoint;
+    private final Long minRiskPoint;
+    private final Long maxRiskPoint;
 
     public static String toStatus(InsuranceAnalysisEnum insuranceAnalysis) {
         if (isNull(insuranceAnalysis)) return null;
@@ -27,14 +27,14 @@ public enum InsuranceAnalysisEnum {
         return insuranceAnalysis.getStatus();
     }
 
-    public static InsuranceAnalysisEnum getInsuranceAnalysisByRiskPoint(Integer riskPoint) {
+    public static InsuranceAnalysisEnum getInsuranceAnalysisByRiskPoint(Long riskPoint) {
         return Stream.of(InsuranceAnalysisEnum.values())
                 .filter(isAtMinRiskRange(riskPoint).and(isAtMaxRiskRange(riskPoint)))
                 .findFirst()
                 .orElse(INELIGIBLE);
     }
 
-    private static Predicate<InsuranceAnalysisEnum> isAtMinRiskRange(Integer riskPoint) {
+    private static Predicate<InsuranceAnalysisEnum> isAtMinRiskRange(Long riskPoint) {
         return insuranceAnalysisEnum -> {
             if (isNull(insuranceAnalysisEnum.getMinRiskPoint())) return true;
 
@@ -42,7 +42,7 @@ public enum InsuranceAnalysisEnum {
         };
     }
 
-    private static Predicate<InsuranceAnalysisEnum> isAtMaxRiskRange(Integer riskPoint) {
+    private static Predicate<InsuranceAnalysisEnum> isAtMaxRiskRange(Long riskPoint) {
         return insuranceAnalysisEnum -> {
             if (isNull(insuranceAnalysisEnum.getMaxRiskPoint())) return true;
 

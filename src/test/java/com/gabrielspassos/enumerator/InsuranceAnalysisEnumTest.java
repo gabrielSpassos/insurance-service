@@ -21,19 +21,19 @@ class InsuranceAnalysisEnumTest {
 
     @Test
     void shouldReturnInsuranceAnalysisEconomicByRiskPoints() {
-        assertEquals(InsuranceAnalysisEnum.ECONOMIC, InsuranceAnalysisEnum.getInsuranceAnalysisByRiskPoint(-1));
-        assertEquals(InsuranceAnalysisEnum.ECONOMIC, InsuranceAnalysisEnum.getInsuranceAnalysisByRiskPoint(0));
+        assertEquals(InsuranceAnalysisEnum.ECONOMIC, InsuranceAnalysisEnum.getInsuranceAnalysisByRiskPoint(-1L));
+        assertEquals(InsuranceAnalysisEnum.ECONOMIC, InsuranceAnalysisEnum.getInsuranceAnalysisByRiskPoint(0L));
     }
 
     @Test
     void shouldReturnInsuranceAnalysisRegularByRiskPoints() {
-        assertEquals(InsuranceAnalysisEnum.REGULAR, InsuranceAnalysisEnum.getInsuranceAnalysisByRiskPoint(1));
-        assertEquals(InsuranceAnalysisEnum.REGULAR, InsuranceAnalysisEnum.getInsuranceAnalysisByRiskPoint(2));
+        assertEquals(InsuranceAnalysisEnum.REGULAR, InsuranceAnalysisEnum.getInsuranceAnalysisByRiskPoint(1L));
+        assertEquals(InsuranceAnalysisEnum.REGULAR, InsuranceAnalysisEnum.getInsuranceAnalysisByRiskPoint(2L));
     }
 
     @Test
     void shouldReturnInsuranceAnalysisResponsibleByRiskPoints() {
-        assertEquals(InsuranceAnalysisEnum.RESPONSIBLE, InsuranceAnalysisEnum.getInsuranceAnalysisByRiskPoint(3));
-        assertEquals(InsuranceAnalysisEnum.RESPONSIBLE, InsuranceAnalysisEnum.getInsuranceAnalysisByRiskPoint(4));
+        assertEquals(InsuranceAnalysisEnum.RESPONSIBLE, InsuranceAnalysisEnum.getInsuranceAnalysisByRiskPoint(3L));
+        assertEquals(InsuranceAnalysisEnum.RESPONSIBLE, InsuranceAnalysisEnum.getInsuranceAnalysisByRiskPoint(4L));
     }
 }

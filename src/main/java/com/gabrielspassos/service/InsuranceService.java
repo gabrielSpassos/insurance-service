@@ -47,7 +47,7 @@ public class InsuranceService {
     }
 
     private Tuple2<CreateInsuranceAnalysisDTO, InsuranceAnalysisDTO> createAnalysis(CreateInsuranceAnalysisDTO createInsuranceAnalysis) {
-        return Tuples.of(createInsuranceAnalysis, InsuranceAnalysisDTOBuilder.buildInitialAnalysis());
+        return Tuples.of(createInsuranceAnalysis, InsuranceAnalysisDTOBuilder.buildInitialAnalysis(createInsuranceAnalysis));
     }
 
     private Tuple2<CreateInsuranceAnalysisDTO, InsuranceAnalysisDTO> analysisIneligibleIncome(Tuple2<CreateInsuranceAnalysisDTO, InsuranceAnalysisDTO> tuple) {
@@ -91,7 +91,7 @@ public class InsuranceService {
             return tuple;
         }
 
-        Integer riskPointsToCalculate = createInsuranceAnalysis.getAge() < 30 ? -2 : -1;
+        Long riskPointsToCalculate = createInsuranceAnalysis.getAge() < 30 ? -2L : -1L;
         insuranceAnalysis.updateAllRiskPoints(riskPointsToCalculate);
 
         return tuple;
@@ -102,7 +102,7 @@ public class InsuranceService {
         InsuranceAnalysisDTO insuranceAnalysis = tuple.getT2();
 
         if (createInsuranceAnalysis.getIncome() > 200000) {
-            insuranceAnalysis.updateAllRiskPoints(-1);
+            insuranceAnalysis.updateAllRiskPoints(-1L);
         }
 
         return tuple;
@@ -116,8 +116,8 @@ public class InsuranceService {
                 && nonNull(createInsuranceAnalysis.getHouse().getStatus())
                 && OwnershipStatusEnum.MORTGAGED.equals(createInsuranceAnalysis.getHouse().getStatus())) {
 
-            insuranceAnalysis.setHomeRiskPoints(calculateRiskPoints(insuranceAnalysis.getHomeRiskPoints(), 1));
-            insuranceAnalysis.setDisabilityRiskPoints(calculateRiskPoints(insuranceAnalysis.getDisabilityRiskPoints(), 1));
+            insuranceAnalysis.setHomeRiskPoints(calculateRiskPoints(insuranceAnalysis.getHomeRiskPoints(), 1L));
+            insuranceAnalysis.setDisabilityRiskPoints(calculateRiskPoints(insuranceAnalysis.getDisabilityRiskPoints(), 1L));
         }
 
         return tuple;
@@ -128,8 +128,8 @@ public class InsuranceService {
         InsuranceAnalysisDTO insuranceAnalysis = tuple.getT2();
 
         if (createInsuranceAnalysis.getDependents() > ZERO) {
-            insuranceAnalysis.setDisabilityRiskPoints(calculateRiskPoints(insuranceAnalysis.getDisabilityRiskPoints(), 1));
-            insuranceAnalysis.setLifeRiskPoints(calculateRiskPoints(insuranceAnalysis.getLifeRiskPoints(), 1));
+            insuranceAnalysis.setDisabilityRiskPoints(calculateRiskPoints(insuranceAnalysis.getDisabilityRiskPoints(), 1L));
+            insuranceAnalysis.setLifeRiskPoints(calculateRiskPoints(insuranceAnalysis.getLifeRiskPoints(), 1L));
         }
 
         return tuple;
@@ -141,8 +141,8 @@ public class InsuranceService {
 
         if (nonNull(createInsuranceAnalysis.getMaritalStatus())
                 && MaritalStatusEnum.MARRIED.equals(createInsuranceAnalysis.getMaritalStatus())) {
-            insuranceAnalysis.setLifeRiskPoints(calculateRiskPoints(insuranceAnalysis.getLifeRiskPoints(), 1));
-            insuranceAnalysis.setDisabilityRiskPoints(calculateRiskPoints(insuranceAnalysis.getDisabilityRiskPoints(), -1));
+            insuranceAnalysis.setLifeRiskPoints(calculateRiskPoints(insuranceAnalysis.getLifeRiskPoints(), 1L));
+            insuranceAnalysis.setDisabilityRiskPoints(calculateRiskPoints(insuranceAnalysis.getDisabilityRiskPoints(), -1L));
         }
 
         return tuple;
@@ -153,7 +153,7 @@ public class InsuranceService {
         InsuranceAnalysisDTO insuranceAnalysis = tuple.getT2();
 
         if (shouldCalculateRiskFromVehicle(createInsuranceAnalysis.getVehicle())) {
-            insuranceAnalysis.setAutoRiskPoints(calculateRiskPoints(insuranceAnalysis.getLifeRiskPoints(), 1));
+            insuranceAnalysis.setAutoRiskPoints(calculateRiskPoints(insuranceAnalysis.getLifeRiskPoints(), 1L));
         }
 
         return tuple;
@@ -181,7 +181,7 @@ public class InsuranceService {
         return Objects.nonNull(vehicleDTO) && (currentYear - vehicleDTO.getYear() <= 5);
     }
 
-    private InsuranceAnalysisEnum getInsuranceAnalysis(InsuranceAnalysisEnum currentAnalysis, Integer riskPoints) {
+    private InsuranceAnalysisEnum getInsuranceAnalysis(InsuranceAnalysisEnum currentAnalysis, Long riskPoints) {
         return InsuranceAnalysisEnum.INELIGIBLE.equals(currentAnalysis)
                 ? currentAnalysis
                 : getInsuranceAnalysisByRiskPoint(riskPoints);

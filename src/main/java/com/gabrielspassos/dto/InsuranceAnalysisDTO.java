@@ -13,19 +13,19 @@ import lombok.NoArgsConstructor;
 public class InsuranceAnalysisDTO {
 
     private InsuranceAnalysisEnum auto;
-    private Integer autoRiskPoints;
+    private Long autoRiskPoints;
     private InsuranceAnalysisEnum disability;
-    private Integer disabilityRiskPoints;
+    private Long disabilityRiskPoints;
     private InsuranceAnalysisEnum home;
-    private Integer homeRiskPoints;
+    private Long homeRiskPoints;
     private InsuranceAnalysisEnum life;
-    private Integer lifeRiskPoints;
+    private Long lifeRiskPoints;
 
-    public static Integer calculateRiskPoints(Integer currentRiskPoints, Integer pointsToCalculate) {
-        return Integer.sum(currentRiskPoints, pointsToCalculate);
+    public static Long calculateRiskPoints(Long currentRiskPoints, Long pointsToCalculate) {
+        return Long.sum(currentRiskPoints, pointsToCalculate);
     }
 
-    public void updateAllRiskPoints(Integer riskPointsToCalculate) {
+    public void updateAllRiskPoints(Long riskPointsToCalculate) {
         this.setAutoRiskPoints(calculateRiskPoints(this.getAutoRiskPoints(), riskPointsToCalculate));
         this.setDisabilityRiskPoints(calculateRiskPoints(this.getDisabilityRiskPoints(), riskPointsToCalculate));
         this.setHomeRiskPoints(calculateRiskPoints(this.getHomeRiskPoints(), riskPointsToCalculate));

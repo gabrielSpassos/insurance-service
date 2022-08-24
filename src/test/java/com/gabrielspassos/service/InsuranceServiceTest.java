@@ -24,7 +24,7 @@ class InsuranceServiceTest {
         InsuranceAnalysisDTO insuranceAnalysisDTO = insuranceService.analysisInsurance(createInsuranceAnalysisDTO).block();
 
         assertNotNull(insuranceAnalysisDTO);
-        assertEquals(InsuranceAnalysisEnum.REGULAR, insuranceAnalysisDTO.getAuto());
+        assertEquals(InsuranceAnalysisEnum.RESPONSIBLE, insuranceAnalysisDTO.getAuto());
         assertEquals(InsuranceAnalysisEnum.INELIGIBLE, insuranceAnalysisDTO.getDisability());
         assertEquals(InsuranceAnalysisEnum.ECONOMIC, insuranceAnalysisDTO.getHome());
         assertEquals(InsuranceAnalysisEnum.REGULAR, insuranceAnalysisDTO.getLife());
