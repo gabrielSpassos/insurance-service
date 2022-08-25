@@ -9,4 +9,9 @@ public class InsuranceAnalysisTest {
         return Karate.run("insuranceAnalysis").relativeTo(getClass());
     }
 
+    @Karate.Test
+    Karate testInsuranceAnalysisContractScenarios() {
+        return Karate.run("insuranceAnalysisContract").relativeTo(getClass());
+    }
+
 }
