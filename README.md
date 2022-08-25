@@ -21,6 +21,8 @@
 - ``` cd insurance-service ```
 - ``` ./gradlew pitest ```
 - Report at ./build/reports/pitest/index.html
+- Output be like: 
+![image](https://user-images.githubusercontent.com/32275521/186566126-12d42ca5-2e30-42eb-a53b-27578e8421a3.png)
 <br>
 
 - Build project
@@ -37,6 +39,8 @@
 - ``` cd insurance-integration-tests ```
 - ``` ./gradlew clean test ``` 
 - Report at ./build/reports/tests/test/index.html
+- Output be like: 
+![image](https://user-images.githubusercontent.com/32275521/186566450-9b100ee2-3573-40f2-9fd2-7f0bb9818e4b.png)
 <br>
 
 - Execute stress tests
@@ -47,7 +51,9 @@
 - Select on console option `1 - Run the Simulation locally` 
 - Select on console option: `insurance.InsuranceAnalysisSimulation`
 - Report at `${your_gatling_folder}/results/insuranceanalysissimulation-*/index.html`
-- More info how to run, [docs](https://gatling.io/docs/gatling/tutorials/quickstart/)
+- More info how to run, [docs](https://gatling.io/docs/gatling/tutorials/quickstart/) 
+- Output be like:
+![image](https://user-images.githubusercontent.com/32275521/186566777-0e2213e3-01f6-4cbf-a651-138083c8d758.png)
 
 ## Technologies
 * **SpringBoot Webflux**: SpringBoot reactive framework to increase I/O performance. 
