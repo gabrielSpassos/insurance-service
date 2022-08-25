@@ -24,7 +24,7 @@ public class InsuranceController implements BaseVersion {
     private ModelMapper modelMapper;
 
     @PostMapping("/insurances-analysis")
-    public Mono<CreateInsuranceAnalysisResponse> createInsuranceAnalysis(@Valid @RequestBody CreateInsuranceAnalysisRequest request) {
+    public Mono<CreateInsuranceAnalysisResponse> createInsuranceAnalysis(@RequestBody @Valid CreateInsuranceAnalysisRequest request) {
         log.info("Started insurance analysis with: {}", request);
         CreateInsuranceAnalysisDTO createInsuranceAnalysisDTO = modelMapper.map(request, CreateInsuranceAnalysisDTO.class);
         return insuranceService.analysisInsurance(createInsuranceAnalysisDTO)

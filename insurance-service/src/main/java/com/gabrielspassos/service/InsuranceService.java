@@ -28,7 +28,7 @@ import static java.util.Objects.nonNull;
 @AllArgsConstructor
 public class InsuranceService {
 
-    private static final Integer ZERO = 0;
+    private static final Long ZERO = 0L;
 
     private RiskAnalysisConfig riskAnalysisConfig;
 

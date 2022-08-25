@@ -14,10 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 public class CreateInsuranceAnalysisDTO {
 
-    private Integer age;
-    private Integer dependents;
+    private Long age;
+    private Long dependents;
     private CreateInsuranceAnalysisHouseDTO house;
-    private Integer income;
+    private Long income;
     private MaritalStatusEnum maritalStatus;
     private List<Boolean> riskQuestions;
     private CreateInsuranceAnalysisVehicleDTO vehicle;

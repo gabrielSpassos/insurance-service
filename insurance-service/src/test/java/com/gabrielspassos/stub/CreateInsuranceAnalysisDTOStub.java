@@ -11,10 +11,10 @@ public class CreateInsuranceAnalysisDTOStub {
 
     public static CreateInsuranceAnalysisDTO create() {
         CreateInsuranceAnalysisDTO createInsuranceAnalysisDTO = new CreateInsuranceAnalysisDTO();
-        createInsuranceAnalysisDTO.setAge(35);
-        createInsuranceAnalysisDTO.setDependents(2);
+        createInsuranceAnalysisDTO.setAge(35L);
+        createInsuranceAnalysisDTO.setDependents(2L);
         createInsuranceAnalysisDTO.setHouse(createHouse(OwnershipStatusEnum.OWNED));
-        createInsuranceAnalysisDTO.setIncome(0);
+        createInsuranceAnalysisDTO.setIncome(0L);
         createInsuranceAnalysisDTO.setMaritalStatus(MaritalStatusEnum.MARRIED);
         createInsuranceAnalysisDTO.setRiskQuestions(Lists.newArrayList(false, true, false));
         createInsuranceAnalysisDTO.setVehicle(createVehicle(2018));
