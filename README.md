@@ -38,3 +38,13 @@
 - ``` ./gradlew clean test ``` 
 - Report at ./build/reports/tests/test/index.html
 <br>
+
+## Technologies
+* **SpringBoot Webflux**: SpringBoot reactive framework to increase I/O performance. 
+* **JUnit 5**: new version of test framework, has some new features to help at unit tests
+* **Pitest**: dependency to use at mutation tests
+* **Karate Framework**: BDD tests framework, abstration to help with integration tests. [Docs](https://karatelabs.github.io/karate/)
+* **Lombok**: development plugin
+* **Swagger**: endpoints documentation
+* **Docker**: tool used to create the enviroment of the solution with all infraestructure dependencies 
+* **Docker Compose**: containers orchestration
